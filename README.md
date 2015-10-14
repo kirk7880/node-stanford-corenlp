@@ -24,42 +24,51 @@ node-stanford-simple-nlp depends on [Stanford CoreNLP](http://nlp.stanford.edu/s
 
     $ npm install stanford-corenlp
 
-**Important!** You should download `stanford-corenlp-full-2014-06-16.zip` file and unzip to a folder and provide the path in the configuration. You can download the file from [here](http://nlp.stanford.edu/software/stanford-corenlp-full-2014-06-16.zip).
+## Dependencies
+To run this module, you will need to download and install the CoreNLP framework from Stanford. For example, during testing, I did the following to install the lib.
 
-PS : (Use Java 1.8 for corenlp 3.5.0+ )
+```bash
+cd /usr/local/src/
+wget -N http://nlp.stanford.edu/software/stanford-corenlp-full-2015-04-20.zip
+unzip stanford-corenlp-full-2015-04-20.zip
+mv stanford-corenlp-full-2015-04-20 /opt/standford-corenlp
+```
+
+### JAVA_HOME
+Be sure JAVA_HOME is set to avoid issues. Below is an example of how to do this in a Mac OSX environment:
+
+```bash
+JAVA_HOME="$(/usr/libexec/java_home)" mocha test/test-standford-nlp.js 
+```
 
 ## Configuration
-```javascript
-var NLP = require('stanford-corenlp');
-var config = {"nlpPath":"./corenlp","version":"3.4"};
-var coreNLP = new NLP.StanfordNLP(config);
-```
+Configuration is in ./config/default.json. Important things to note about the configuration file is the version of CoreNLP you've installed, the install location (path) and the annotators you want to load.
 
 ## Usage
 
-#### Async mode
 ```javascript
-var NLP = require('stanford-corenlp');
 
-var coreNLP = new NLP.StanfordNLP({"nlpPath":"./corenlp","version":"3.4"},function(err) {
-  coreNLP.process('This is so good.', function(err, result) {
-    console.log(err,JSON.stringify(result));
+// allow us to mutate the config if all options wasn't set
+process.env['ALLOW_CONFIG_MUTATIONS']=true
+
+let config = require('config');
+let nlp = new NLP(config.get('corenlp'));
+
+nlp
+  .loadPipeline()
+  .then(function() {
+      nlp.process(txt).then(function(result) {
+        nlp.sentiment(result).
+          then(function(tone) {
+            console.log('Sentiment: ', tone)
+          }).catch(function(e) {
+            console.log('Error: ', e);
+          })
+      }).catch(function(e) {
+        console.log(e);
+      });
   });
-});
 ```
-
-#### Sync mode
-```javascript
-var NLP = require('stanford-corenlp');
-
-var coreNLP = new NLP.StanfordNLP({"nlpPath":"./corenlp","version":"3.4"});
-coreNLP.loadPipelineSync();
-coreNLP.process('This is so good.', function(err, result) {
-  console.log(err,JSON.stringify(result));
-});
-```
-
-**Warning!** If you didn't initialize the class without callback function then you will meet `'Load a pipeline first.'` error. So you have to do it with callback function or call `loadPipeline(options, callback)` function seperately.
 
 #### Errors
 If you are getting error 
