@@ -2,7 +2,7 @@ var should = require('should');
 
 var standfordSimpleNlpModule = require('../index');
 
-var StanfordSimpleNLP = standfordSimpleNlpModule.StanfordSimpleNLP;
+var StanfordSimpleNLP = standfordSimpleNlpModule.StanfordNLP;
 
 describe('standfordSimpleNlpModule', function() {
   return describe('StandordSimpleNLP', function() {
