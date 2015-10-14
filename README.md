@@ -1,11 +1,6 @@
 # node-stanford-corenlp
-A simple node.js wrapper for Stanford CoreNLP.
+A simple node.js wrapper for Stanford CoreNLP and implemented in ES6.
 
-### Quick Demo
-* Download [corenlp-3.5.2](http://nlp.stanford.edu/software/stanford-corenlp-full-2015-04-20.zip) ![Download 3.5.2](http://i.imgur.com/vZS62uy.png)
-* Extract the content of **standford-corenlp-full-2015-04-20.zip** to ***corenlp*** directory in the root directory of this project
-* Run ``` node examples/sentiments.js ```
-* Go to [Localhost:8990](http://localhost:8990/?q=There%20are%20slow%20and%20repetitive%20parts,%20but%20it%20has%20just%20enough%20spice%20to%20keep%20it%20interesting.)
 
 ----
 
@@ -20,7 +15,7 @@ The Stanford CoreNLP code is written in Java and licensed under the GNU General 
 
 ## Installation
 
-node-stanford-simple-nlp depends on [Stanford CoreNLP](http://nlp.stanford.edu/software/corenlp.shtml) v3.4. And don't forget to [set proper environment variables](https://github.com/nearinfinity/node-java) like `JAVA_HOME` in your system.
+node-stanford-simple-nlp depends on [Stanford CoreNLP](http://nlp.stanford.edu/software/corenlp.shtml) v3.5.2. And don't forget to [set proper environment variables](https://github.com/nearinfinity/node-java) like `JAVA_HOME` in your system.
 
     $ npm install stanford-corenlp
 
